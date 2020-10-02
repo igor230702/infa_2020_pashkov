@@ -1,2 +1,3 @@
 # infa_2020_pashkov
-it's test project
+бананы и груши
+месиво инопланетян
