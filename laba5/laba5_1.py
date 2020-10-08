@@ -30,6 +30,7 @@ cloud_color2 = (239 - 30, 78 - 20, 175 - 20)
 ufo_color = (0, 50, 100)
 alien_color = (250, 0, 0)
 banana_color = (250, 250, 0)
+random_color = (r.randint(0, 255), r.randint(0, 255), r.randint(0, 255))
 mune_size = 100
 
 
@@ -57,15 +58,16 @@ def ufo(size, x, y, ufo_color):
             (x - size * 2.5 * 0.55 + size * 0.15, y - size / 2 + size * 0.25, size * 2.5 / 10, size / 10))
 
 
-def alien(size, x1, y1, rotated, alien_color):
+def alien(size, x1, y1, rotated, alien_color, dead):
     '''
     Функция рисует пришельца.
     size - ширина изображения
     x1, y1 - координаты правого нижнего угла пришельца
     rotated - функция, принимающая значения True или False. Если True, то пришелец смотрит влево, иначе - вправо
     alien_color - цвет, заданный в формате, подходящем для pygame.Color
+    dead - принимает 1, если пришелец мёртвый, 0 - если живой
     '''
-    raw = pygame.Surface((500, 700), pygame.SRCALPHA)
+    raw = pygame.Surface((1000, 1000), pygame.SRCALPHA)
     ellipse(raw, alien_color, (x1, y1, size / 2.5, size))
     circle(raw, alien_color, (int(x1 + size / 2.5), int(y1 + size / 10)), int(size / 9))
     circle(raw, alien_color, (int(x1), int(y1 + size / 10)), int(size / 9))
@@ -116,16 +118,23 @@ def alien(size, x1, y1, rotated, alien_color):
     raw.blit(surf5, (x1 - size / 6, y1 - size / 1.2))
     raw.blit(surf6, (x1 - size / 4.4, y1 - size / 1.19))
     circle(raw, alien_color, (int(x1 + size / 6), int(y1 - size / 8)), int(10))
-    circle(raw, black, (int(x1 + size / 3), int(y1 - size / 6)), int(size / 15))
-    circle(raw, black, (int(x1 + size / 8), int(y1 - size / 6)), int(size / 11))
-    circle(raw, white, (int(x1 + size / 8 + size / 25), int(y1 - size / 7)), int(size / 40))
-    circle(raw, white, (int(x1 + size / 2.8), int(y1 - size / 7)), int(size / 45))
+    if dead == 0:
+        circle(raw, black, (int(x1 + size / 3), int(y1 - size / 6)), int(size / 15))
+        circle(raw, black, (int(x1 + size / 8), int(y1 - size / 6)), int(size / 11))
+        circle(raw, white, (int(x1 + size / 8 + size / 25), int(y1 - size / 7)), int(size / 40))
+        circle(raw, white, (int(x1 + size / 2.8), int(y1 - size / 7)), int(size / 45))
+    else:
+        circle(raw, black, (int(x1 + size / 3), int(y1 - size / 6)), int(size / 15))
+        circle(raw, black, (int(x1 + size / 8), int(y1 - size / 6)), int(size / 11))
+        circle(raw, red, (int(x1 + size / 8 + size / 25), int(y1 - size / 7)), int(size / 40))
+        circle(raw, red, (int(x1 + size / 2.8), int(y1 - size / 7)), int(size / 45))
+    if dead == 1:
+        raw = pygame.transform.rotate(raw, 270)
     if rotated:
         raw = pygame.transform.flip(raw, True, False)
         screen.blit(raw, (0, 0))
     else:
         screen.blit(raw, (0, 0))
-
 
 screen = pygame.display.set_mode((500, 700))
 # отрисовка земли
@@ -134,7 +143,8 @@ screen.fill([20, 105, 20])
 polygon(screen, sky_color, [(0, 0), (0, 400), (500, 400), (500, 0)])
 surfer = pygame.Surface((500, 400), pygame.SRCALPHA)
 # Луна:
-circle(screen, mune_color, (280, 170), mune_size)
+for i in range(250):
+    circle(screen, (250 - i, 250, i), (380, 50), 1 + i, 1)
 # 1-ый слой облаков
 ellipse(surfer, cloud_color1, (340, -30, 800, 90))
 ellipse(surfer, cloud_color1, (-200, 30, 500, 120))
@@ -150,17 +160,17 @@ surfer = blurSurf(surfer, 25)
 screen.blit(surfer, (0, 0))
 # тарелки и пришельцы
 
-alien(30, 340, 380, True, alien_color)
+alien(80, 250, 250, True, alien_color, 0)
 ufo(100, 250, 370, red)
 ufo(90, 350, 130, ufo_color)
-ufo(75, 500, 390, red)
+ufo(75, 500, 390, alien_color)
 ufo(40, 300, 400, ufo_color)
 ufo(60, 100, 250, green)
-alien(150, 350, 400, False, pink)
-alien(50, 200, 410, False, alien_color)
-alien(50, 390, 410, True, white)
-alien(60, 335, 560, True, alien_color)
-alien(90, 230, 450, False, black)
+alien(70, 200, 400, False, pink, 0)
+alien(100, 500, 70, True, alien_color, 1)
+alien(70, 590, 300, True, white, 1)
+alien(60, 335, 560, True, alien_color, 0)
+alien(90, 530, 450, True, yellow, 0)
 
 pygame.display.update()
 clock = pygame.time.Clock()
