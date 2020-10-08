@@ -1,2 +1,3 @@
 # infa_2020_pashkov
-it's test project
+1) бананы и груши
+2) месиво инопланетян
