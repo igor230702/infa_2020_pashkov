@@ -210,7 +210,7 @@ while not finished:
     if l <= w / 2:
         rect(screen, GREEN, (w / 4, h / 8, l, h / 16))
     pygame.display.update()
-    screen.fill(COLORS[randint(0, 4)])
+    screen.fill(BLACK)
 if win == 1:  # Если победа, то игрок записывается в файл
     print("Введите Ваше имя:")
     name = str(input())
