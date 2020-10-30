@@ -163,11 +163,11 @@ class target():
 
     def new_target(self):
         """ Инициализация новой цели. """
-        x = self.x = rnd(600, 780)
-        y = self.y = rnd(300, 550)
+        r = self.r = rnd(2, 50)
+        x = self.x = rnd(600 + r, 780 - r)
+        y = self.y = rnd(300 + r, 550 - r)
         self.vx = rnd(-5, 5)
         self.vy = rnd(-5, 5)
-        r = self.r = rnd(2, 50)
         color = self.color = 'red'
         canv.coords(self.id, x-r, y-r, x+r, y+r)
         canv.itemconfig(self.id, fill=color)

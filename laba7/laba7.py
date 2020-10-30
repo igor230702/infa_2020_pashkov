@@ -102,7 +102,7 @@ def col_target(list):
         list['y'] -= list['r']
     if list['y'] <= list['r']:
         list['vy'] = -list['vy']
-        list['vy'] += list['r']
+        list['y'] += list['r']
     if target['vx'] >= max or target['vx'] <= -max:
         target['ax'] = -target['ax']  # Если скорость больше максимальной, то она меняет направление на противоположное
     if target['vy'] >= max or target['vy'] <= -max:
@@ -218,3 +218,12 @@ if win == 1:  # Если победа, то игрок записывается 
     records.write(name + ' : ' + str(score) + '\n')
     records.close()
 pygame.quit()
+
+"""if self.x >= w - self.r:
+                self.vx = -self.vx
+            if self.x <= self.r:
+                self.vx = -self.vx
+            if self.y >= h - self.r:
+                self.vy = -self.vy
+            if self.y <= self.r:
+                self.vy = -self.vy"""
