@@ -30,6 +30,7 @@ def func_plus():
 def func_minus():
     tr.left(120)
 
+
 tr.penup()
 tr.goto(-300, -300)
 tr.pendown()
