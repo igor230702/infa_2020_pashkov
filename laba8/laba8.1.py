@@ -145,6 +145,7 @@ class gun():
             canv.itemconfig(self.id, fill='black')
 
 
+
 class target():
     def __init__(self):
         self.points = 0
