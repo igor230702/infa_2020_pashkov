@@ -218,12 +218,3 @@ if win == 1:  # Если победа, то игрок записывается 
     records.write(name + ' : ' + str(score) + '\n')
     records.close()
 pygame.quit()
-
-"""if self.x >= w - self.r:
-                self.vx = -self.vx
-            if self.x <= self.r:
-                self.vx = -self.vx
-            if self.y >= h - self.r:
-                self.vy = -self.vy
-            if self.y <= self.r:
-                self.vy = -self.vy"""
