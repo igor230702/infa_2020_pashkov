@@ -2,7 +2,6 @@ import pygame
 from pygame.draw import *
 from random import randint
 
-
 pygame.init()
 FPS = 60
 RED = (255, 0, 0)
